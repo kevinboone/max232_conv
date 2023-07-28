@@ -11,13 +11,14 @@ serial ports found in many RC2014-type retrocomputers.  It allows real RS232
 devices to be connected, rather than serial USB converters, and handles RTS/CTS
 hardware flow control. It is designed to be used with, and mounted alongside, a
 dual SIO serial board, or a motherboard like the SC130 that has two serial
-ports. 
+ports. See the image `board_usage.jpg` to see how I connect it to an
+SC130 in the same backplane.
 
 You'll need something like this to connect an RC2014 system to a genuine
 vintage serial terminal, modem, or printer.
 
 The design is based on the standard MAX232 IC, which contains built-in
-voltage converters to generate the +/-12V that RS232 needs. So this
+voltage converters to generate the +/-12V that RS232 needs, so this
 module needs only a single 5V supply.
 
 The two converters in this module are absolutely identical.
@@ -79,7 +80,7 @@ pricing tier -- I paid US$2 for five boards.
 
 I hope it's self-explanatory. I would recommend sockets for the ICs,
 particularly if you can't vouch for their authenticity (see below) and might
-end up replacing them. I would recommend soldering the IC sockes first, then
+end up replacing them. I would recommend soldering the IC sockets first, then
 the pin headers, then the backplane connector, then the capacitors, then the
 DB9 connector (if used).
 
@@ -90,13 +91,22 @@ or right-angle headers will work fine, according to the layout constraints.
 
 ## Notes
 
-There are many 5V-to-RS232 modules on the market, some very cheap.  However,
-most of these have no support at all for hardware flow control. 
+** Important ** This board is powered from the serial connector headers.  The
+motherboard or serial board to which it is connected may have jumpers to
+control whether power is connected to the header. On the SC130, these jumpers
+are located next to the serial ports. The board is not powered from the
+backplane, because I wanted it to be able to work outside of a backplane if
+necessary.
 
 ** Important ** This board provides a _DTE_ interface to the external RS232
 device. It does not swap RX/TX or RTS/CTS, as some similar modules do.
 Connecting it to a printer or terminal will require a null modem cable, not a
 straight cable.
+
+There are many 5V-to-RS232 modules on the market, some very cheap.  However,
+most of these have no support at all for hardware flow control. Both the converters
+in this board provide RTS/CTS support (although that does not mean that the operating
+system or serial hardware does). 
 
 The design uses two Maxim MAX232 chips in 16-pin format. There are many cheap,
 nasty imitations of the original Maxim part for sale, particularly on eBay.
@@ -117,11 +127,11 @@ a PC, there's no need for RS232: an FTDI-style USB adapter should work
 perfectly well, and be less complicated.
 
 The MAX232 is specified to work at up to 115,200 baud. I've had no problems
-using this module at that speed, with a 3m RS232 cable.
+using this module at that speed, with a 3m-long RS232 cable.
 
 The PCB design provides three mounting holes of 3mm diameter. If using these to
-mount the board on a panel, bear in mind the design as it currently stands does
-not isolate the mounting holes from the ground backplane. 
+mount the board on a panel, bear in mind that the design as it currently stands
+does not isolate the mounting holes from the ground backplane. 
 
 There's no significance to the electrolytic capacitors in the board photo being
 different colours -- I just ran out of blue ones whilst assembling the board.
@@ -130,7 +140,7 @@ The MAX232 chips get a tiny bit warm in use.
 
 ## Legal
 
-`max232\_conv` is an open-source hardware design, released under the
+`max232_conv` is an open-source hardware design, released under the
 terms of the Creative Commons Share-alike Licence, version 4.0. You
 may build and use the design, but the distribution of modifications
 is only permitted if the modified designs will also be open-source. There
